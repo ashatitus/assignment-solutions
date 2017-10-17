@@ -1,0 +1,38 @@
+---
+title: "Solution to Assignment 2.2"
+author: "Kenneth Benoit"
+date: "16/10/2017"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 2
+
+### Question 2.2
+
+This comes straight from the lecture notes:
+```{r}
+library("reshape2", warn.conflicts = FALSE)
+load("cmpdata.Rdata")
+
+cmpdataLong <- melt(cmpdata,
+                    id.vars = c("countryname", "party", "date"),
+                    measure.vars = names(cmpdata)[21:76],
+                    variable.name = "category",
+                    value.name = "catcount")
+head(cmpdataLong, 10)
+```
+
+### Question 2.2
+
+To "spread" this back into wide format, using the **tidyr** package:
+
+```{r}
+library("tidyr", warn.conflicts = FALSE)
+cmpdataWide <- spread(cmpdataLong, category, catcount)
+head(cmpdataWide)
+```
+
